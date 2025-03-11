@@ -99,7 +99,10 @@ app.put("/api/notes/:id", (request, response, next) => {
 app.use(unknownEndpoint);
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3001;
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+server.keepAliveTimeout = 120000; // 120 segundos
+server.headersTimeout = 120000; // 120 segundos
